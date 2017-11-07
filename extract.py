@@ -19,10 +19,12 @@ length = ilen
 labels = labels[8:]
 images = images[16:]
 
+data = []
+
 for n in range(100):
 	num = labels[n]
-	pic = [i for i in images[:total]]
-	im = Image.frombytes('P', (28, 28), bytes(images[:total]))
+	pic = [i for i in images[n*total:(n+1)*total]]
+	data.append((pic, num))
+	im = Image.frombytes('P', (28, 28), bytes(images[n*total:(n+1)*total]))
 	im.save(f'extracted_images/pic{n}.png', 'PNG')
-	images = images[total:]
 	print(n, num)
