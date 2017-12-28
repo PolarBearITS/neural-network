@@ -1,4 +1,5 @@
 from PIL import Image
+import pickle
 labels = open('train-labels.idx1-ubyte', 'rb').read()
 images = open('train-images.idx3-ubyte', 'rb').read()
 
@@ -21,10 +22,9 @@ images = images[16:]
 
 data = []
 
-for n in range(100):
+for n in range(1):
 	num = labels[n]
 	pic = [i for i in images[n*total:(n+1)*total]]
 	data.append((pic, num))
-	im = Image.frombytes('P', (28, 28), bytes(images[n*total:(n+1)*total]))
-	im.save(f'extracted_images/pic{n}.png', 'PNG')
-	print(n, num)
+with open('data.pk', 'wb+') as f:
+	pickle.dump(data, f)
